@@ -3,12 +3,14 @@
 import axios from "axios";
 import { cookies } from "next/headers";
 
+const API_URL = process.env.API_URL;
+
 export async function getStudent() {
   const cookieStore = await cookies();
   const cookiesList = cookieStore.getAll();
 
   const response = await axios
-    .get("http://localhost:3000/api/student", {
+    .get(`${API_URL}/api/student`, {
       headers: {
         cookie: cookiesList
           .map((cookie) => `${cookie.name}=${cookie.value}`)

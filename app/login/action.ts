@@ -4,6 +4,9 @@ import axios from "axios";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
+const API_URL = process.env.API_URL;
+console.log("API URL:", API_URL);
+
 export async function login(formData: FormData) {
   console.log("Login action triggered");
   console.log("Form data:", formData);
@@ -17,7 +20,7 @@ export async function login(formData: FormData) {
   };
 
   const response = await axios
-    .post("http://localhost:3000/api/login", JSON.stringify(data))
+    .post(`${API_URL}/api/login`, JSON.stringify(data))
     .then((res) => res.data)
     .catch((err) => {
       console.error("Error in login action:", err);

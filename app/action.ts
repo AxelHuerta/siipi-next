@@ -9,6 +9,11 @@ export async function getStudent() {
   const cookieStore = await cookies();
   const cookiesList = cookieStore.getAll();
 
+  if (!cookiesList.length) {
+    console.error("No cookies found");
+    return null;
+  }
+
   const response = await axios
     .get(`${API_URL}/api/student`, {
       headers: {

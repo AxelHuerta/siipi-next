@@ -59,8 +59,6 @@ async function getStudentData() {
 async function App() {
   const data = await getStudentData();
 
-  console.log("Function response: ", await getStudentData());
-
   if (!data) {
     redirect("/login");
   }

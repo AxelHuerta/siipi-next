@@ -23,7 +23,5 @@ export async function getStudent() {
       return null;
     });
 
-  console.log("Student data from action:", response);
-
   return response;
 }

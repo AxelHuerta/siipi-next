@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { getStudent } from "./action";
+import { redirect } from "next/navigation";
 
 export interface Student {
   trimester: string;
@@ -31,6 +32,10 @@ export interface Student {
 async function getStudentData() {
   const data = await getStudent();
   console.log("Student data from page:", data);
+
+  if (!data) {
+    return null;
+  }
 
   const student: Student = {
     trimester: data?.trimester ? data.trimester : "N/A",
@@ -55,6 +60,10 @@ async function App() {
   const data = await getStudentData();
 
   console.log("Function response: ", await getStudentData());
+
+  if (!data) {
+    redirect("/login");
+  }
 
   return (
     <>

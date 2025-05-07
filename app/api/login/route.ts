@@ -20,7 +20,16 @@ export async function POST(request: NextRequest) {
     },
     redirect: "manual",
     credentials: "include",
-  });
+  })
+    .then((res) => res)
+    .catch((err) => {
+      console.error("Error in login action:", err);
+      return null;
+    });
+
+  if (!response) {
+    return NextResponse.json({ error: "Login failed" }, { status: 500 });
+  }
 
   const cookies = response.headers.getSetCookie();
 

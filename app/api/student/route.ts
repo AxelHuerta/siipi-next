@@ -7,13 +7,26 @@ export async function GET() {
 
   console.log("Cookies from api:", cookieStore.getAll());
 
-  const response = await axios.get("https://siipi.izt.uam.mx/alumno", {
-    headers: {
-      cookie: cookiesList
-        .map((cookie) => `${cookie.name}=${cookie.value}`)
-        .join("; "),
-    },
-  });
+  const response = await axios
+    .get("https://siipi.izt.uam.mx/alumno", {
+      headers: {
+        cookie: cookiesList
+          .map((cookie) => `${cookie.name}=${cookie.value}`)
+          .join("; "),
+      },
+    })
+    .then((res) => res)
+    .catch((err) => {
+      console.error("Error in student data fetch:", err);
+      return null;
+    });
+
+  if (!response) {
+    return new Response(
+      JSON.stringify({ error: "Failed to fetch student data" }),
+      { status: 500 }
+    );
+  }
 
   const cleanedData = response.data
     .split("INFORMACIÓN DEL ALUMNO PARA EL TRIMESTRE ")[1]

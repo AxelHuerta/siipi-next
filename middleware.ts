@@ -3,8 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 export async function middleware(request: NextRequest) {
   const session = request.cookies.get("PHPSESSID")?.value;
 
-  console.log("Session from middleware:", session);
-
   if (!session && request.nextUrl.pathname !== "/login") {
     return NextResponse.redirect(new URL("/login", request.url));
   }

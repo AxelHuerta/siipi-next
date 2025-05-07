@@ -5,8 +5,6 @@ export async function GET() {
   const cookieStore = await cookies();
   const cookiesList = cookieStore.getAll();
 
-  console.log("Cookies from api:", cookieStore.getAll());
-
   const response = await axios
     .get("https://siipi.izt.uam.mx/alumno", {
       headers: {
@@ -21,17 +19,23 @@ export async function GET() {
       return null;
     });
 
-  if (!response) {
+  const isCorrect = response?.data.split(
+    "INFORMACIÓN DEL ALUMNO PARA EL TRIMESTRE "
+  )[1];
+
+  if (!isCorrect) {
     return new Response(
-      JSON.stringify({ error: "Failed to fetch student data" }),
-      { status: 500 }
+      JSON.stringify({ error: "No se encontró información del alumno" }),
+      { status: 404 }
     );
   }
 
-  const cleanedData = response.data
+  const cleanedData = response?.data
     .split("INFORMACIÓN DEL ALUMNO PARA EL TRIMESTRE ")[1]
     .split('<table class="table-striped table">')[0]
     .replace(/<\/?[^>]+(>|$)/g, "");
+
+  console.log("Cleaned Data:", cleanedData);
 
   const trimester = cleanedData.split("ALUMNO")[0].trim();
   const name = cleanedData.split("ALUMNO:")[1].split("ESTADO")[0].trim();

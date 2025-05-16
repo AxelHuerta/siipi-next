@@ -9,8 +9,11 @@ export async function getStudent() {
   const cookieStore = await cookies();
   const cookiesList = cookieStore.getAll();
 
-  if (!cookiesList.length) {
-    console.error("No cookies found");
+  const phpsessid = cookieStore.get("PHPSESSID");
+  const rememberMe = cookieStore.get("REMEMBERME");
+
+  if (!phpsessid || !rememberMe) {
+    console.error("No session or remember me cookie found");
     return null;
   }
 

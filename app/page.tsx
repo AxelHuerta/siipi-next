@@ -34,7 +34,7 @@ async function getStudentData() {
   console.log("Student data from page:", data);
 
   if (!data) {
-    return null;
+    return redirect("/login");
   }
 
   const student: Student = {
@@ -58,10 +58,6 @@ async function getStudentData() {
 
 async function App() {
   const data = await getStudentData();
-
-  if (!data) {
-    redirect("/login");
-  }
 
   return (
     <>

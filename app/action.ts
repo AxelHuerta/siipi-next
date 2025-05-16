@@ -13,7 +13,7 @@ export async function getStudent() {
   const rememberMe = cookieStore.get("REMEMBERME");
 
   if (!phpsessid || !rememberMe) {
-    console.error("No session or remember me cookie found");
+    console.log("No session or remember me cookie found");
     return null;
   }
 

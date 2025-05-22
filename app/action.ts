@@ -1,7 +1,8 @@
 "use server";
 
-import axios from "axios";
+import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import axios from "axios";
 
 const API_URL = process.env.API_URL;
 
@@ -32,4 +33,12 @@ export async function getStudent() {
     });
 
   return response;
+}
+
+export async function logout() {
+  const cookieStore = await cookies();
+  cookieStore.delete("PHPSESSID");
+  cookieStore.delete("REMEMBERME");
+
+  redirect("/login");
 }

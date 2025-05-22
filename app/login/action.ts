@@ -5,13 +5,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 const API_URL = process.env.API_URL;
-console.log("API URL:", API_URL);
 
 export async function login(formData: FormData) {
-  console.log("Login action triggered");
-  console.log("Form data:", formData);
-  console.log("Type of formData:", typeof formData);
-
   const { username, password } = Object.fromEntries(formData.entries());
 
   const data = {

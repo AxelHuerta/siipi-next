@@ -35,8 +35,6 @@ export async function GET() {
     .split('<table class="table-striped table">')[0]
     .replace(/<\/?[^>]+(>|$)/g, "");
 
-  console.log("Cleaned Data:", cleanedData);
-
   const trimester = cleanedData.split("ALUMNO")[0].trim();
   const name = cleanedData.split("ALUMNO:")[1].split("ESTADO")[0].trim();
   const status = cleanedData
@@ -82,6 +80,17 @@ export async function GET() {
     .split("\n")[0]
     .trim();
   const email = cleanedData.split("E-MAIL:")[1].trim();
+
+  // get ueas
+
+  const ueasCleanData = response?.data;
+  if (ueasCleanData.includes("SIN CARGA ACADÉMICA AL DÍA DE HOY"))
+    console.log("SIN CARGA ACADÉMICA AL DÍA DE HOY");
+
+  // .split("FECHA DE ÚLTIMA ACTUALIZACIÓN DE UEA'S")[1]
+  //   .split("</table>")[0];
+
+  console.log(ueasCleanData);
 
   return new Response(
     JSON.stringify({

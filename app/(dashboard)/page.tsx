@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { getStudent } from "./action";
+import { getStudent } from "./../action";
 import { redirect } from "next/navigation";
 
 export interface Student {
@@ -31,7 +31,6 @@ export interface Student {
 
 async function getStudentData() {
   const data = await getStudent();
-  console.log("Student data from page:", data);
 
   if (!data) {
     return redirect("/login");
